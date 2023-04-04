@@ -2,9 +2,10 @@
   "name": "vue-i18n-translate-csv",
   "version": "0.0.1",
   "description": "Messages registered in Vue i18n are parsed and output in CSV format that can be input into Google Spreadsheet.",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "build": "rimraf dist && rollup -c rollup.config.ts --configPlugin typescript"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,21 @@
   },
   "homepage": "https://github.com/n2ptune/vue-i18n-translate-csv#readme",
   "devDependencies": {
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "cac": "^6.7.14",
+    "rimraf": "^4.4.1",
+    "rollup": "^3.20.2",
+    "tslib": "^2.5.0",
     "typescript": "^5.0.2",
     "vitest": "^0.29.7"
+  },
+  "bin": {
+    "vue-i18n-translate-csv": "./bin/vue-i18n-translate-csv.js"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.3.2"
   }
 }
