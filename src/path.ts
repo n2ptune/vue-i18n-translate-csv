@@ -58,6 +58,12 @@ export interface SearchNodeConfig {
   specificSearchDir: string[]
 }
 
+export interface ResultI18nPath {
+  ko: string
+  en: string
+  i18nPath: string
+}
+
 export const __DIR_NAME__ = path.dirname(url.fileURLToPath(import.meta.url))
 export const __FILE_NAME__ = url.fileURLToPath(import.meta.url)
 export const filePattern = [/\.js$/, /\.vue$/]
@@ -69,9 +75,16 @@ export const defaultSearchNodeConfig: SearchNodeConfig = {
   specificSearchDir: []
 }
 
-export function getI18nPath(inputPath?: string) {
+export function getI18nPath(inputPath?: string): ResultI18nPath {
   if (!inputPath) {
     inputPath = path.resolve(__DIR_NAME__, 'src', 'i18n')
+  } else {
+    inputPath = path.resolve(inputPath)
+  }
+  return {
+    ko: path.resolve(inputPath, 'ko.js'),
+    en: path.resolve(inputPath, 'en.js'),
+    i18nPath: inputPath
   }
 }
 
