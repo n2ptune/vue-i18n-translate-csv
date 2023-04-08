@@ -1,5 +1,6 @@
 import { cac } from 'cac'
 import { name } from '../package.json'
+import { generate, input } from './run'
 
 const cli = cac(name)
 
@@ -7,12 +8,12 @@ interface GlobalCliOption {
   '--': string[]
 }
 
-interface GenerateOption extends GlobalCliOption {
+export interface GenerateOption extends GlobalCliOption {
   i: string
   input: string
 }
 
-interface InputOption extends GlobalCliOption {
+export interface InputOption extends GlobalCliOption {
   i: string
   input: string
   k: string
@@ -20,15 +21,6 @@ interface InputOption extends GlobalCliOption {
   e: string
   english: string
 }
-
-// cli
-
-//   .option('-w, --write <file>', 'CSV name to input', {
-//     default: './translated.csv'
-//   })
-//   .option('-o, --output <file>', 'CSV name to output', {
-//     default: './trasnlate.csv'
-//   })
 
 cli
   .command('generate [root]', 'generate csv file')
