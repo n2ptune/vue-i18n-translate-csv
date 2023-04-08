@@ -1,0 +1,4 @@
+__tests__/src/** linguist-vendored
+__tests__/vue/** linguist-vendored
+bin/** linguist-vendored
+dist/** linguist-vendored
