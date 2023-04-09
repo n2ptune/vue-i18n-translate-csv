@@ -5,7 +5,7 @@ import { generate, input } from './run'
 const cli = cac(name)
 
 interface GlobalCliOption {
-  '--': string[]
+  '--'?: string[]
 }
 
 export interface GenerateOption extends GlobalCliOption {
@@ -23,24 +23,24 @@ export interface InputOption extends GlobalCliOption {
 }
 
 cli
-  .command('generate [root]', 'generate csv file')
+  .command('generate', 'generate csv file')
   .alias('gen')
   .alias('g')
-  .option('-i, --input <file>', 'file containing all messages', {
-    default: './src/i18n/ko/index.js'
+  .option('-i, --input <directory>', 'directory containing all messages', {
+    default: './src/i18n'
   })
-  .action((root: string = '', description: GenerateOption) => {
-    console.log(root, description)
+  .action(async (options: GenerateOption) => {
+    await generate(options)
   })
 
 cli
-  .command('input [root]', 'read csv file and overwrite message file')
+  .command('input', 'read csv file and overwrite message file')
   .alias('i')
   .option('-i, --input <file>', 'csv file')
   .option('-k, --korean <file>', 'included Korean message file')
   .option('-e, --english <file>', 'included English message file')
-  .action((root: string = '', description: InputOption) => {
-    console.log(root, description)
+  .action((options: InputOption) => {
+    console.log(options)
   })
 
 cli.help()

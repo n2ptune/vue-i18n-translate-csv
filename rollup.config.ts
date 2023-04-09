@@ -3,10 +3,14 @@ import json from '@rollup/plugin-json'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
+import commonjs from '@rollup/plugin-commonjs'
 
 const globalPlugins: RollupOptions['plugins'] = [
   typescript(),
   json(),
+  commonjs({
+    extensions: ['.js']
+  }),
   nodeResolve(),
   terser()
 ]
@@ -15,7 +19,7 @@ const mainConfig: RollupOptions = defineConfig({
   input: './src/index.ts',
   output: [
     {
-      file: './dist/index.esm.js',
+      file: './dist/index.mjs',
       format: 'esm'
     },
     {
@@ -30,7 +34,7 @@ const cliConfig: RollupOptions = defineConfig({
   input: './src/cli.ts',
   output: [
     {
-      file: './dist/cli.esm.js',
+      file: './dist/cli.mjs',
       format: 'esm'
     },
     {
@@ -38,6 +42,7 @@ const cliConfig: RollupOptions = defineConfig({
       format: 'cjs'
     }
   ],
+
   plugins: globalPlugins
 })
 

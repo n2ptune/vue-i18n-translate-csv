@@ -1,7 +1,7 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-specifier-resolution=node
 
 function start() {
-  return import('../dist/cli.esm.js')
+  return import('../dist/cli.mjs')
 }
 
 start()

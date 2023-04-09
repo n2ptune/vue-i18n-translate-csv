@@ -1,5 +1,6 @@
 import type { ResultI18nPath } from './path'
 import fs from 'node:fs'
+import url from 'node:url'
 
 function flatObject(input: any) {
   function flat(res: any, key: string, val: any, pre = '') {
@@ -84,7 +85,7 @@ export function extractMatchString(files: string[]): string[] {
 
 export function filterGenerateTarget(korean: string[], i18nMap: UserI18nMap) {
   const filtered: string[] = []
-  
+
   for (const text of korean) {
     if (!i18nMap.revKo.get(text)) filtered.push(text)
   }
@@ -95,8 +96,8 @@ export function filterGenerateTarget(korean: string[], i18nMap: UserI18nMap) {
 export async function extractCurrentI18n(
   i18nPath: ResultI18nPath
 ): Promise<UserI18n<any>> {
-  const ko = await import(i18nPath.ko)
-  const en = await import(i18nPath.en)
+  const ko = await import(url.pathToFileURL(i18nPath.ko).href)
+  const en = await import(url.pathToFileURL(i18nPath.en).href)
 
   return {
     ko: ko.default,
