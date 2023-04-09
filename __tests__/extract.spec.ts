@@ -59,6 +59,7 @@ describe('extract', () => {
     const i18nMap = generateMapFromUserI18n(userI18n)
     const matched = extractMatchString(nodes)
     const filtered = filterGenerateTarget(matched, i18nMap)
-    console.log(filtered)
+    expect(filtered).toBeDefined()
+    expect(filtered).toHaveLength(5)
   })
 })
