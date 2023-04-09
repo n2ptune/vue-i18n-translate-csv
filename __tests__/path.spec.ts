@@ -25,4 +25,13 @@ describe('path', () => {
     })
     expect(nodes).toHaveLength(3) // not include ignore paths
   })
+
+  test('specific start path', () => {
+    const nodes = getSearchNodes({
+      ...defaultSearchNodeConfig,
+      ignore: ['__tests__/vue/ignore_path', testEnv.sourcePath],
+      startPath: path.resolve(testEnv.startPath, '__tests__', 'vue', 'deep')
+    })
+    expect(nodes).toHaveLength(1)
+  })
 })
