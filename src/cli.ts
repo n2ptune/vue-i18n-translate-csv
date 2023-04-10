@@ -16,10 +16,8 @@ export interface GenerateOption extends GlobalCliOption {
 export interface InputOption extends GlobalCliOption {
   i: string
   input: string
-  k: string
-  korean: string
-  e: string
-  english: string
+  c: string
+  csv: string
 }
 
 cli
@@ -35,12 +33,14 @@ cli
 
 cli
   .command('input', 'read csv file and overwrite message file')
+  .alias('in')
   .alias('i')
-  .option('-i, --input <file>', 'csv file')
-  .option('-k, --korean <file>', 'included Korean message file')
-  .option('-e, --english <file>', 'included English message file')
-  .action((options: InputOption) => {
-    console.log(options)
+  .option('-i, --input <directory>', 'directory containing all messages', {
+    default: './src/i18n'
+  })
+  .option('-c, --csv <file>', 'csv file')
+  .action(async (options: InputOption) => {
+    await input(options)
   })
 
 cli.help()

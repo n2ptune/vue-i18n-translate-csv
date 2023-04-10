@@ -11,7 +11,16 @@ export function generateCSV(sourceText: string[] = []) {
 
   const writeResult = result.join('\n')
 
-  fs.writeFileSync(path.resolve(process.cwd(), `translate-${Date.now()}.csv`), writeResult, 'utf-8')
+  fs.writeFileSync(
+    path.resolve(process.cwd(), `translate-${Date.now()}.csv`),
+    writeResult,
+    'utf-8'
+  )
 }
 
-export function inputCSV(csvPath: string) {}
+export function readCSV(csvName: string) {
+  if (!csvName.endsWith('.csv')) csvName = csvName + '.csv'
+  const csvPath = path.resolve(process.cwd(), csvName)
+  const csv = fs.readFileSync(csvPath, 'utf-8')
+  return csv
+}

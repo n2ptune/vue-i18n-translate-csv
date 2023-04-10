@@ -1,5 +1,5 @@
 import type { GenerateOption, InputOption } from './cli'
-import { generateCSV } from './csv'
+import { generateCSV, readCSV } from './csv'
 import { extractCurrentI18n, extractMatchString, filterGenerateTarget, generateMapFromUserI18n } from './extract'
 import { defaultSearchNodeConfig, getI18nPath, getSearchNodes } from './path'
 
@@ -16,4 +16,12 @@ export async function generate(options: GenerateOption) {
   generateCSV(filteredMatches)
 }
 
-export async function input(options: InputOption) {}
+export async function input(options: InputOption) {
+  try {
+    const csv = readCSV(options.csv)
+    const currentI18n = await extractCurrentI18n(getI18nPath(options.input))
+  } catch (e) {
+    process.stdout.write('Something wrong')
+    process.exit(-1)
+  }
+}
