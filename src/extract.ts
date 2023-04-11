@@ -1,6 +1,7 @@
-import type { ResultI18nPath } from './path'
+import { ResultI18nPath, __DIR_NAME__ } from './path'
 import fs from 'node:fs'
 import url from 'node:url'
+import path from 'node:path'
 
 function flatObject(input: any) {
   function flat(res: any, key: string, val: any, pre = '') {
@@ -103,4 +104,30 @@ export async function extractCurrentI18n(
     ko: ko.default,
     en: en.default
   }
+}
+
+export function extractI18nFileRaw(i18nPath: ResultI18nPath): {
+  ko: string[]
+  en: string[]
+} {
+  const koRaw = fs.readFileSync(
+    path.resolve(__DIR_NAME__, i18nPath.ko),
+    'utf-8'
+  )
+  const enRaw = fs.readFileSync(
+    path.resolve(__DIR_NAME__, i18nPath.en),
+    'utf-8'
+  )
+
+  const ko = parseToObjectFromString(koRaw)
+  const en = parseToObjectFromString(enRaw)
+
+  return {
+    ko,
+    en
+  }
+}
+
+export function parseToObjectFromString(str: string) {
+  return str.split('export default')[1].trim().split('\n').slice(0, -1)
 }
