@@ -129,5 +129,12 @@ export function extractI18nFileRaw(i18nPath: ResultI18nPath): {
 }
 
 export function parseToObjectFromString(str: string) {
-  return str.split('export default')[1].trim().split('\n').slice(0, -1)
+  // [ '{}', ..... TODO(input last) -> '}']
+  const parse = str.split('export default')[1].trim().split('\n').slice(0, -1)
+
+  if (!parse[parse.length - 1].endsWith(',')) {
+    parse[parse.length - 1] = parse[parse.length - 1] + ','
+  }
+
+  return parse
 }

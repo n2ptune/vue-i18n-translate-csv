@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import papaparse from 'papaparse'
 
 export function generateCSV(sourceText: string[] = []) {
   const result: string[] = []
@@ -22,5 +23,9 @@ export function readCSV(csvName: string) {
   if (!csvName.endsWith('.csv')) csvName = csvName + '.csv'
   const csvPath = path.resolve(process.cwd(), csvName)
   const csv = fs.readFileSync(csvPath, 'utf-8')
-  return csv
+  const parsed = papaparse.parse(csv)
+  return {
+    origin: csv,
+    parsed: parsed.data as [string, string]
+  }
 }

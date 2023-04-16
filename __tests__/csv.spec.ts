@@ -14,8 +14,8 @@ describe('csv', () => {
   test('parse export default', () => {
     expect(
       parseToObjectFromString(`export default {
-      MESSAGE: 1
-    }`)
+        MESSAGE: 1
+      }`)
     ).toHaveLength(2)
   })
 
