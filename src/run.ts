@@ -43,7 +43,7 @@ export function input(options: InputOption) {
     currentI18n.ko.push('}')
     currentI18n.en.push('}')
 
-    console.log(currentI18n)
+    console.dir(currentI18n, { maxArrayLength: null })
   } catch (e) {
     console.log(e)
     // process.stdout.write('Something wrong')

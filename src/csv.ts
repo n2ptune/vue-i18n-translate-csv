@@ -7,7 +7,7 @@ export function generateCSV(sourceText: string[] = []) {
 
   for (let i = 0; i < sourceText.length; i++) {
     const text = sourceText[i]
-    result.push(`${text},"=GOOGLETRANSLATE(A${i + 1}, ""ko"", ""en"")"`)
+    result.push(`"${text}","=GOOGLETRANSLATE(A${i + 1}, ""ko"", ""en"")"`)
   }
 
   const writeResult = result.join('\n')
