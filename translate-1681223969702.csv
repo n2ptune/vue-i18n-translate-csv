@@ -1,5 +1,0 @@
-Hello World,"=GOOGLETRANSLATE(A1, ""ko"", ""en"")"
-번역 안된 거 1,"=GOOGLETRANSLATE(A2, ""ko"", ""en"")"
-번역 안된 거 2,"=GOOGLETRANSLATE(A3, ""ko"", ""en"")"
-번역 안된 거 3,"=GOOGLETRANSLATE(A4, ""ko"", ""en"")"
-번역 안된 거 4 {n} 변수와 함께,"=GOOGLETRANSLATE(A5, ""ko"", ""en"")"
