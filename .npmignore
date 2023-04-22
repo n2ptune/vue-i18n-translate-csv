@@ -1,5 +1,5 @@
 !/dist
 !/dist/**
-__test__
+__tests__
 .github
 vitest.config.ts
