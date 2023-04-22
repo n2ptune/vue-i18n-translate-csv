@@ -1,2 +1,5 @@
 !/dist
 !/dist/**
+__test__
+.github
+vitest.config.ts
