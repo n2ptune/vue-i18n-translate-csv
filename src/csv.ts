@@ -29,3 +29,8 @@ export function readCSV(csvName: string) {
     parsed: parsed.data as [string, string]
   }
 }
+
+export function writeJson(json: string) {
+  const fileName = 'translated.json'
+  fs.writeFileSync(path.resolve(process.cwd(), fileName), json, 'utf-8')
+}

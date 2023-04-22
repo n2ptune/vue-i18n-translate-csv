@@ -1,5 +1,5 @@
 import type { GenerateOption, InputOption } from './cli'
-import { generateCSV, readCSV } from './csv'
+import { generateCSV, readCSV, writeJson } from './csv'
 import {
   extractCurrentI18n,
   extractI18nFileRaw,
@@ -26,24 +26,26 @@ export async function generate(options: GenerateOption) {
 export function input(options: InputOption) {
   try {
     const csv = readCSV(options.csv)
-    const currentI18n = extractI18nFileRaw(getI18nPath(options.input))
+    // const currentI18n = extractI18nFileRaw(getI18nPath(options.input))
+    const result: { ko: Record<string, string>; en: Record<string, string> } = {
+      ko: {},
+      en: {}
+    }
 
     csv.parsed.forEach(([ko, en], index) => {
-      let ends = ','
-
-      if (index === csv.parsed.length - 1) {
-        ends = ''
-      }
-
       const rnd = randomString(10)
-      currentI18n.ko.push(`  ${rnd}: '${ko}'${ends}`)
-      currentI18n.en.push(`  ${rnd}: '${en}'${ends}`)
+      result.ko[rnd] = ko
+      result.en[rnd] = en
+      // currentI18n.ko.push(`${rnd}: '${ko}'${ends}`)
+      // currentI18n.en.push(`${rnd}: '${en}'${ends}`)
     })
 
-    currentI18n.ko.push('}')
-    currentI18n.en.push('}')
+    // currentI18n.ko.push('}')
+    // currentI18n.en.push('}')
 
-    console.dir(currentI18n, { maxArrayLength: null })
+    // console.dir(currentI18n, { maxArrayLength: null })
+
+    writeJson(JSON.stringify(result, null, 2))
   } catch (e) {
     console.log(e)
     // process.stdout.write('Something wrong')
