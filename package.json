@@ -1,6 +1,6 @@
 {
   "name": "vue-i18n-translate-csv",
-  "version": "0.0.1",
+  "version": "0.0.1-beta.1",
   "description": "Messages registered in Vue i18n are parsed and output in CSV format that can be input into Google Spreadsheet.",
   "main": "./dist/index.js",
   "type": "module",
