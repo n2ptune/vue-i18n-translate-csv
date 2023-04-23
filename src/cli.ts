@@ -11,6 +11,8 @@ interface GlobalCliOption {
 export interface GenerateOption extends GlobalCliOption {
   i: string
   input: string
+  sd?: string
+  specificDir?: string
 }
 
 export interface InputOption extends GlobalCliOption {
@@ -27,6 +29,7 @@ cli
   .option('-i, --input <directory>', 'directory containing all messages', {
     default: './src/i18n'
   })
+  .option('-sd, --specificDir <directory>', 'specific directory')
   .action(async (options: GenerateOption) => {
     await generate(options)
   })

@@ -2,7 +2,6 @@ import type { GenerateOption, InputOption } from './cli'
 import { generateCSV, readCSV, writeJson } from './csv'
 import {
   extractCurrentI18n,
-  extractI18nFileRaw,
   extractMatchString,
   filterGenerateTarget,
   generateMapFromUserI18n
@@ -13,7 +12,8 @@ import { randomString } from './util'
 export async function generate(options: GenerateOption) {
   const nodes = getSearchNodes({
     ...defaultSearchNodeConfig,
-    startPath: process.cwd()
+    startPath: process.cwd(),
+    specificSearchDir: options.sd ? [options.sd] : []
   })
   const currentI18n = await extractCurrentI18n(getI18nPath(options.input))
   const map = generateMapFromUserI18n(currentI18n)
@@ -26,7 +26,6 @@ export async function generate(options: GenerateOption) {
 export function input(options: InputOption) {
   try {
     const csv = readCSV(options.csv)
-    // const currentI18n = extractI18nFileRaw(getI18nPath(options.input))
     const result: { ko: Record<string, string>; en: Record<string, string> } = {
       ko: {},
       en: {}
@@ -36,19 +35,10 @@ export function input(options: InputOption) {
       const rnd = randomString(10)
       result.ko[rnd] = ko
       result.en[rnd] = en
-      // currentI18n.ko.push(`${rnd}: '${ko}'${ends}`)
-      // currentI18n.en.push(`${rnd}: '${en}'${ends}`)
     })
-
-    // currentI18n.ko.push('}')
-    // currentI18n.en.push('}')
-
-    // console.dir(currentI18n, { maxArrayLength: null })
 
     writeJson(JSON.stringify(result, null, 2))
   } catch (e) {
     console.log(e)
-    // process.stdout.write('Something wrong')
-    // process.exit(-1)
   }
 }
