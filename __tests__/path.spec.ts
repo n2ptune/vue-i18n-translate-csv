@@ -14,7 +14,7 @@ describe('path', () => {
       startPath: testEnv.startPath,
       ignore: [testEnv.sourcePath]
     })
-    expect(nodes).toHaveLength(4) // include ignore paths
+    expect(nodes).toHaveLength(5) // include ignore paths
   })
 
   test('search node includes ignored paths', () => {
@@ -33,5 +33,16 @@ describe('path', () => {
       startPath: path.resolve(testEnv.startPath, '__tests__', 'vue', 'deep')
     })
     expect(nodes).toHaveLength(1)
+  })
+
+  test('specific includes path', () => {
+    const nodes = getSearchNodes({
+      ...defaultSearchNodeConfig,
+      ignore: ['__tests__/vue/ignore_path', testEnv.sourcePath],
+      specificSearchDir: ['__tests__/vue/ignore_path/more-deep/here'],
+      startPath: path.resolve(testEnv.startPath, '__tests__', 'vue')
+    })
+    console.log(nodes)
+    expect(nodes).toHaveLength(4)
   })
 })

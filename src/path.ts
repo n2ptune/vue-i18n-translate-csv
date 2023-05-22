@@ -18,21 +18,43 @@ function _getSearchNodes(config: SearchNodeConfig): string[] {
   const ignoreFullPaths = config.ignore.map((p) =>
     path.resolve(config.startPath, p)
   )
+  const specificSearchDir = config.specificSearchDir.map((p) =>
+    path.resolve(config.startPath, p)
+  )
 
-  function search(searchPath: string, requiredIgnore = true) {
+  function search(searchPath: string) {
     try {
       const nodes = fs.readdirSync(searchPath, { withFileTypes: true })
 
       if (nodes && nodes.length) {
         nodes.forEach((node) => {
           if (node.isDirectory()) {
-            if (
-              requiredIgnore &&
-              !ignoreFullPaths.includes(path.resolve(searchPath, node.name))
-            ) {
-              search(path.resolve(searchPath, node.name), requiredIgnore)
-            }
+            // if (
+            //   ignoreFullPaths.every(
+            //     (p) => !path.resolve(searchPath, node.name).includes(p)
+            //   ) &&
+            //   (specificSearchDir.length
+            //     ? !specificSearchDir.some((p) =>
+            //         path.resolve(searchPath, node.name).includes(p)
+            //       )
+            //     : true)
+            // ) {
+            search(path.resolve(searchPath, node.name))
+            // }
           } else if (config.searchPattern.some((reg) => reg.test(node.name))) {
+            if (
+              specificSearchDir.some((p) =>
+                path.resolve(searchPath, node.name).includes(p)
+              )
+            ) {
+              resultFile.push(path.resolve(searchPath, node.name))
+            }
+            if (
+              ignoreFullPaths.some((p) =>
+                path.resolve(searchPath, node.name).includes(p)
+              )
+            )
+              return
             resultFile.push(path.resolve(searchPath, node.name))
           }
         })
@@ -42,11 +64,7 @@ function _getSearchNodes(config: SearchNodeConfig): string[] {
 
   search(config.startPath)
 
-  if (config.specificSearchDir.length) {
-    config.specificSearchDir.forEach((dir) =>
-      search(path.resolve(config.startPath, dir), false)
-    )
-  }
+  console.log(resultFile)
 
   return resultFile
 }
