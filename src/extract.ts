@@ -73,7 +73,7 @@ export function extractMatchString(files: string[]): string[] {
     if (matches && matches.length) {
       for (const inner of matches) {
         const doubleMatch = inner.match(quoteRegex)
-        if (doubleMatch && doubleMatch.length === 1) {
+        if (doubleMatch && doubleMatch.length) {
           // 양쪽 끝 삭제
           matched.push(doubleMatch[0].slice(1, doubleMatch[0].length - 1))
         }

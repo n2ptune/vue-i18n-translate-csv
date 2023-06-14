@@ -42,7 +42,6 @@ describe('path', () => {
       specificSearchDir: ['__tests__/vue/ignore_path/more-deep/here'],
       startPath: path.resolve(testEnv.startPath, '__tests__', 'vue')
     })
-    console.log(nodes)
-    expect(nodes).toHaveLength(4)
+    expect(nodes).toHaveLength(5)
   })
 })

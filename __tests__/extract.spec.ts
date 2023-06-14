@@ -50,7 +50,7 @@ describe('extract', () => {
     const nodes = testNodes()
     const matched = extractMatchString(nodes)
     expect(matched).toBeTypeOf('object')
-    expect(matched).toHaveLength(6)
+    expect(matched).toHaveLength(7)
   })
 
   test('filter not translated text', async () => {
@@ -60,6 +60,6 @@ describe('extract', () => {
     const matched = extractMatchString(nodes)
     const filtered = filterGenerateTarget(matched, i18nMap)
     expect(filtered).toBeDefined()
-    expect(filtered).toHaveLength(5)
+    expect(filtered).toHaveLength(6)
   })
 })

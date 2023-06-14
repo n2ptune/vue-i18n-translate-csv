@@ -5,6 +5,15 @@
     {{ $v("번역 안된 거 1") }}
     {{ $v('번역 안된 거 2') }}
     {{ $t('COMMON') }}
+    <span
+      class="name-form-noti"
+      v-html="$v('<b>{shareName}</b>을 {state}하시겠습니까?<br>NAS 명을 동일하게 입력해주세요.', {
+        shareName: shareDetailData.shareName,
+        state: updateShareData
+          ? $i18n.locale === 'en' ? 'change' : '변경'
+          : $i18n.locale === 'en' ? 'delete' : '삭제'
+      })"
+    />
     <!-- Not Matched -->
   </div>
 </template>
