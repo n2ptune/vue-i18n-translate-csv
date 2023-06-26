@@ -20,7 +20,7 @@ export async function generate(options: GenerateOption) {
   const matches = extractMatchString(nodes)
   const filteredMatches = filterGenerateTarget(matches, map)
 
-  generateCSV(filteredMatches)
+  generateCSV(filteredMatches, options)
 }
 
 export function input(options: InputOption) {

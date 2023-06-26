@@ -1,22 +1,32 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import papaparse from 'papaparse'
+import { GenerateOption } from './cli'
+import { runInSheet } from './sheet'
 
-export function generateCSV(sourceText: string[] = []) {
+export function generateCSV(sourceText: string[] = [], options: GenerateOption) {
   const result: string[] = []
+  const rawText: string[] = []
+  const rawTranslateFnText: string[] = []
 
   for (let i = 0; i < sourceText.length; i++) {
     const text = sourceText[i]
     result.push(`"${text}","=GOOGLETRANSLATE(A${i + 1}, ""ko"", ""en"")"`)
+    rawText.push(text)
+    rawTranslateFnText.push(`=GOOGLETRANSLATE(A${i + 1}, ""ko"", ""en"")`)
   }
 
   const writeResult = result.join('\n')
 
-  fs.writeFileSync(
-    path.resolve(process.cwd(), `translate-${Date.now()}.csv`),
-    writeResult,
-    'utf-8'
-  )
+  if (options.useSheetApi) {
+    runInSheet(writeResult, rawText, rawTranslateFnText)
+  } else {
+    fs.writeFileSync(
+      path.resolve(process.cwd(), `translate-${Date.now()}.csv`),
+      writeResult,
+      'utf-8'
+    )
+    }
 }
 
 export function readCSV(csvName: string) {

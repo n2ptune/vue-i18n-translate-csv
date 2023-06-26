@@ -6,7 +6,7 @@
   "type": "module",
   "types": "types/index.d.ts",
   "scripts": {
-    "dev": "rimraf dist && npm run build -- -w",
+    "dev": "rimraf dist && rollup -c rollup.config.ts --configPlugin typescript -w",
     "test": "vitest",
     "build": "rimraf dist && rimraf types && rollup -c rollup.config.ts --configPlugin typescript && rimraf dist/types"
   },

@@ -13,6 +13,8 @@ export interface GenerateOption extends GlobalCliOption {
   input: string
   sd?: string
   specificDir?: string
+  u: boolean
+  useSheetApi: boolean
 }
 
 export interface InputOption extends GlobalCliOption {
@@ -30,6 +32,9 @@ cli
     default: './src/i18n'
   })
   .option('-sd, --specificDir <directory>', 'specific directory')
+  .option('-u, --useSheetApi', 'auto extract translated result with google sheet api', {
+    default: false
+  })
   .action(async (options: GenerateOption) => {
     await generate(options)
   })
