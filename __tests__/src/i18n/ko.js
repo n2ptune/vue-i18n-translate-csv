@@ -1,4 +1,4 @@
-import messages from './messages/ko'
+import messages from './messages/ko.js'
 
 export default {
   messages,

@@ -46,6 +46,7 @@
     "fsevents": "2.3.2"
   },
   "dependencies": {
-    "googleapis": "^118.0.0"
+    "google-auth-library": "^8.8.0",
+    "google-spreadsheet": "^4.0.0"
   }
 }

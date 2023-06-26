@@ -10,7 +10,8 @@ const globalPlugins: RollupOptions['plugins'] = [
   typescript(),
   json(),
   commonjs({
-    extensions: ['.js']
+    extensions: ['.js'],
+    sourceMap: false
   }),
   nodeResolve(),
   terser()
