@@ -44,5 +44,8 @@
   },
   "optionalDependencies": {
     "fsevents": "2.3.2"
+  },
+  "dependencies": {
+    "googleapis": "^118.0.0"
   }
 }
