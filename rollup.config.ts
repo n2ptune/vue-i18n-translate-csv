@@ -4,6 +4,7 @@ import nodeResolve from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
+import dts from 'rollup-plugin-dts'
 
 const globalPlugins: RollupOptions['plugins'] = [
   typescript(),
@@ -46,4 +47,10 @@ const cliConfig: RollupOptions = defineConfig({
   plugins: globalPlugins
 })
 
-export default [mainConfig, cliConfig]
+const dtsConfig: RollupOptions = defineConfig({
+  input: './dist/types/src/index.d.ts',
+  output: [{ file: 'types/index.d.ts', format: 'es' }],
+  plugins: [dts()]
+})
+
+export default [mainConfig, cliConfig, dtsConfig]
