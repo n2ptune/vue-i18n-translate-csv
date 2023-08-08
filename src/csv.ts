@@ -11,9 +11,9 @@ export function generateCSV(sourceText: string[] = [], options: GenerateOption) 
 
   for (let i = 0; i < sourceText.length; i++) {
     const text = sourceText[i]
-    result.push(`"${text}","=GOOGLETRANSLATE(A${i + 1}, ""ko"", ""en"")"`)
+    result.push(`"${text}","=GOOGLETRANSLATE(A${i + (options.useSheetApi ? 2 : 1)}, ${options.useSheetApi ? '"ko", "en"' : '""ko"", ""en"""'})`)
     rawText.push(text)
-    rawTranslateFnText.push(`=GOOGLETRANSLATE(A${i + 1}, ""ko"", ""en"")`)
+    rawTranslateFnText.push(`=GOOGLETRANSLATE(A${i + (options.useSheetApi ? 2 : 1)}, ${options.useSheetApi ? '"ko", "en"' : '""ko"", ""en"""'})`)
   }
 
   const writeResult = result.join('\n')

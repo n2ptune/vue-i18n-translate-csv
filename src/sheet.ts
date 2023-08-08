@@ -16,10 +16,20 @@ export async function runInSheet(full: string, words: string[], fn: string[]) {
   const sheet = await doc.addSheet({ headerValues: ['text', 'translate'] })
   // const rows = await sheet.getRows()
 
-  await sheet.addRows([{
-    text: 'test',
-    translate: '=GOOGLETRANSLATE("apple", "en", "ko")'
-  }])
+  // await sheet.addRows([{
+  //   text: 'test',
+  //   translate: '=GOOGLETRANSLATE("apple", "en", "ko")'
+  // }])
+
+  const rows = []
+
+  for (let i = 0; i < words.length; i++) {
+    rows.push({ text: words[i], translate: fn[i] })
+  }
+
+  await sheet.addRows(rows)
+
+  console.log(rows)
 
   // await sheet.spreadsheets.values.update({
   //   spreadsheetId,
