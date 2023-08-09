@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import papaparse from 'papaparse'
 import { GenerateOption } from './cli'
-import { runInSheet } from './sheet'
+// import { runInSheet } from './sheet'
 
 export function generateCSV(sourceText: string[] = [], options: GenerateOption) {
   const result: string[] = []
@@ -19,7 +19,7 @@ export function generateCSV(sourceText: string[] = [], options: GenerateOption) 
   const writeResult = result.join('\n')
 
   if (options.useSheetApi) {
-    runInSheet(writeResult, rawText, rawTranslateFnText)
+    // runInSheet(writeResult, rawText, rawTranslateFnText)
   } else {
     fs.writeFileSync(
       path.resolve(process.cwd(), `translate-${Date.now()}.csv`),
