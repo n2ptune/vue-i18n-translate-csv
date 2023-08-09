@@ -64,7 +64,8 @@ export function extractMatchString(files: string[]): string[] {
    * 백틱을 검사할 경우 자바스크립트 표현식이 포함될 수 있기 때문에 검사하지 않는다.
    * 백틱까지 검사하려면 `/('|"|`).*?('|"|`)/gim`
    */
-  const quoteRegex = /('|").*?('|")/gim
+  // const quoteRegex = /('|").*?('|")/gim
+  const quoteRegex = /(?:['"].*['"]\))|(?:['"].*['"],)/gim
   const matched: string[] = []
 
   for (const filePath of files) {
@@ -73,9 +74,10 @@ export function extractMatchString(files: string[]): string[] {
     if (matches && matches.length) {
       for (const inner of matches) {
         const doubleMatch = inner.match(quoteRegex)
+        console.log(doubleMatch, inner)
         if (doubleMatch && doubleMatch.length) {
           // 양쪽 끝 삭제
-          matched.push(doubleMatch[0].slice(1, doubleMatch[0].length - 1))
+          matched.push(doubleMatch[0].slice(1, doubleMatch[0].length - 2))
         }
       }
     }
