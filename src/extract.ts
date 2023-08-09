@@ -77,7 +77,10 @@ export function extractMatchString(files: string[]): string[] {
         console.log(doubleMatch, inner)
         if (doubleMatch && doubleMatch.length) {
           // 양쪽 끝 삭제
-          matched.push(doubleMatch[0].slice(1, doubleMatch[0].length - 2))
+          const rawText = doubleMatch[0]
+            .slice(1, doubleMatch[0].length - 2)
+            .replace(/"/gmi, '""')
+          matched.push(rawText)
         }
       }
     }
