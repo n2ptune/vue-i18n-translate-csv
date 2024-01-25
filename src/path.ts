@@ -64,8 +64,6 @@ function _getSearchNodes(config: SearchNodeConfig): string[] {
 
   search(config.startPath)
 
-  console.log(resultFile)
-
   return resultFile
 }
 

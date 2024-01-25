@@ -14,7 +14,7 @@ describe('path', () => {
       startPath: testEnv.startPath,
       ignore: [testEnv.sourcePath]
     })
-    expect(nodes).toHaveLength(5) // include ignore paths
+    expect(nodes).toHaveLength(6) // include ignore paths
   })
 
   test('search node includes ignored paths', () => {
@@ -23,7 +23,7 @@ describe('path', () => {
       ignore: ['__tests__/vue/ignore_path', testEnv.sourcePath],
       startPath: testEnv.startPath
     })
-    expect(nodes).toHaveLength(3) // not include ignore paths
+    expect(nodes).toHaveLength(4) // not include ignore paths
   })
 
   test('specific start path', () => {

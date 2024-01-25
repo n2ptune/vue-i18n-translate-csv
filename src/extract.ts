@@ -57,8 +57,12 @@ export function generateMapFromUserI18n(i18n: UserI18n): UserI18nMap {
 export function extractMatchString(files: string[]): string[] {
   /**
    * $v 호출부를 검사한다.
+   * @fix 2024-01-25
+   * - 문자열이 함수 호출 끝맺음을 뜻하는 닫힌 괄호로 끝나는 경우
+   * 문자열 전부를 매칭하지 못하는 경우까지 고려해야 하므로 정규식 수정
    */
-  const funcRegex = /\$v\(([^()]*)\)/gim
+  // const funcRegex = /\$v\(([^()]*)\)/gim
+  const funcRegex = /\$v\s*\((?:(?:(?:(?<!\\)['"])[^'"]*(?<!\\)['"])|[^)]*)*\)/gim
   /**
    * 작은 따옴표, 큰 따옴표만 검사한다.
    * 백틱을 검사할 경우 자바스크립트 표현식이 포함될 수 있기 때문에 검사하지 않는다.
@@ -74,7 +78,6 @@ export function extractMatchString(files: string[]): string[] {
     if (matches && matches.length) {
       for (const inner of matches) {
         const doubleMatch = inner.match(quoteRegex)
-        console.log(doubleMatch, inner)
         if (doubleMatch && doubleMatch.length) {
           // 양쪽 끝 삭제
           const rawText = doubleMatch[0]
