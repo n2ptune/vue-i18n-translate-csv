@@ -20,7 +20,7 @@ describe('path', () => {
   test('search node includes ignored paths', () => {
     const nodes = getSearchNodes({
       ...defaultSearchNodeConfig,
-      ignore: ['__tests__/vue/ignore_path', testEnv.sourcePath],
+      ignore: [path.resolve(__dirname, '../__tests__/vue/ignore_path'), testEnv.sourcePath],
       startPath: testEnv.startPath
     })
     expect(nodes).toHaveLength(4) // not include ignore paths
@@ -29,7 +29,7 @@ describe('path', () => {
   test('specific start path', () => {
     const nodes = getSearchNodes({
       ...defaultSearchNodeConfig,
-      ignore: ['__tests__/vue/ignore_path', testEnv.sourcePath],
+      ignore: [path.resolve(__dirname, '../__tests__/vue/ignore_path'), testEnv.sourcePath],
       startPath: path.resolve(testEnv.startPath, '__tests__', 'vue', 'deep')
     })
     expect(nodes).toHaveLength(1)
@@ -38,10 +38,10 @@ describe('path', () => {
   test('specific includes path', () => {
     const nodes = getSearchNodes({
       ...defaultSearchNodeConfig,
-      ignore: ['__tests__/vue/ignore_path', testEnv.sourcePath],
-      specificSearchDir: ['__tests__/vue/ignore_path/more-deep/here'],
+      ignore: [path.resolve(__dirname, '../__tests__/vue/ignore_path'), testEnv.sourcePath], // ignore 2 files
+      specificSearchDir: [path.resolve(__dirname, '../__tests__/vue/ignore_path/more-deep/here')], // ignored 2 files from ignore options but serach directly 1 file
       startPath: path.resolve(testEnv.startPath, '__tests__', 'vue')
     })
-    expect(nodes).toHaveLength(5)
+    expect(nodes).toHaveLength(4)
   })
 })
