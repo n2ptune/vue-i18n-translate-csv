@@ -84,7 +84,7 @@ export function extractMatchString(files: string[]): string[] {
         if (doubleMatch && doubleMatch.length) {
           // 양쪽 끝 삭제
           const rawText = doubleMatch[0]
-            .slice(1, doubleMatch[0].length - 2)
+            .slice(1, doubleMatch[0].length - 1)
             .replace(/"/gmi, '""')
           matched.push(rawText)
         }
