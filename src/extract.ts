@@ -67,9 +67,12 @@ export function extractMatchString(files: string[]): string[] {
    * 작은 따옴표, 큰 따옴표만 검사한다.
    * 백틱을 검사할 경우 자바스크립트 표현식이 포함될 수 있기 때문에 검사하지 않는다.
    * 백틱까지 검사하려면 `/('|"|`).*?('|"|`)/gim`
+   * @fix 2024-01-30
+   * - 문자열 내 변수 문법이 사용된 경우 문자열의 끝과 매칭이 되지 않는 경우가 있어
+   * 고려하여서 수정
    */
   // const quoteRegex = /('|").*?('|")/gim
-  const quoteRegex = /(?:['"].*['"]\))|(?:['"].*['"],)/gim
+  const quoteRegex = /(?:(?<!\\)'[^'\\]*(?:\\.[^'\\]*)*'|(?<!\\)"[^"\\]*(?:\\.[^"\\]*)*")/gim
   const matched: string[] = []
 
   for (const filePath of files) {
